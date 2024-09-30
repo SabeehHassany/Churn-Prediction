@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Churn Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 5px;
+        }
+        .radio-group label {
+            margin-right: 10px;
+        }
+        .btn-group input[type="radio"] {
+            display: none; /* Hide the radio buttons */
+        }
+        .btn-group label {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #c8e6c9;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-group input[type="radio"]:checked + label {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .text-input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Churn Prediction Form</h1>
+
+    <form id="churnForm">
+        <label for="gender">Gender:</label>
+        <div class="radio-group btn-group">
+            <input type="radio" id="genderMale" name="gender" value="Male" required>
+            <label for="genderMale">Male</label>
+
+            <input type="radio" id="genderFemale" name="gender" value="Female" required>
+            <label for="genderFemale">Female</label>
+        </div>
+
+        <label for="seniorCitizen">Senior Citizen:</label>
+        <div class="radio-group btn-group">
+            <input type="radio" id="seniorCitizenYes" name="SeniorCitizen" value="Yes" required>
+            <label for="seniorCitizenYes">Yes</label>
+
+            <input type="radio" id="seniorCitizenNo" name="SeniorCitizen" value="No" required>
+            <label for="seniorCitizenNo">No</label>
+        </div>
+
+        <label for="partner">Partner:</label>
+        <div class="radio-group btn-group">
+            <input type="radio" id="partnerYes" name="Partner" value="Yes" required>
+            <label for="partnerYes">Yes</label>
+
+            <input type="radio" id="partnerNo" name="Partner" value="No" required>
+            <label for="partnerNo">No</label>
+        </div>
+
+        <label for="dependents">Dependents:</label>
+        <div class="radio-group btn-group">
+            <input type="radio" id="dependentsYes" name="Dependents" value="Yes" required>
+            <label for="dependentsYes">Yes</label>
+
+            <input type="radio" id="dependentsNo" name="Dependents" value="No" required>
+            <label for="dependentsNo">No</label>
+        </div>
+
+        <label for="tenure">Tenure:</label>
+        <input type="number" id="tenure" name="tenure" class="text-input" required>
+
+        <label for="phoneService">Phone Service:</label>
+        <div class="radio-group btn-group">
+            <input type="radio" id="phoneServiceYes" name="PhoneService" value="Yes" required>
+            <label for="phoneServiceYes">Yes</label>
+
+            <input type="radio" id="phoneServiceNo" name="PhoneService" value="No" required>
+            <label for="phoneServiceNo">No</label>
+        </div>
+
+        <label for="paperlessBilling">Paperless Billing:</label>
+        <div class="radio-group btn-group">
+            <input type="radio" id="paperlessBillingYes" name="PaperlessBilling" value="Yes" required>
+            <label for="paperlessBillingYes">Yes</label>
+
+            <input type="radio" id="paperlessBillingNo" name="PaperlessBilling" value="No" required>
+            <label for="paperlessBillingNo">No</label>
+        </div>
+
+        <label for="monthlyCharges">Monthly Charges:</label>
+        <input type="number" step="0.01" id="monthlyCharges" name="MonthlyCharges" class="text-input" required>
+
+        <label for="totalCharges">Total Charges:</label>
+        <input type="number" step="0.01" id="totalCharges" name="TotalCharges" class="text-input" required>
+
+        <!-- Add Missing Fields -->
+        <label for="multipleLines">Multiple Lines:</label>
+        <div class="radio-group btn-group">
+            <input type="radio" id="multipleLinesYes" name="MultipleLines" value="Yes" required>
+            <label for="multipleLinesYes">Yes</label>
+
+            <input type="radio" id="multipleLinesNo" name="MultipleLines" value="No" required>
+            <label for="multipleLinesNo">No</label>
+        </div>
+
+        <label for="internetService">Internet Service:</label>
+        <div class="radio-group btn-group">
+            <input type="radio" id="internetServiceDSL" name="InternetService" value="DSL" required>
+            <label for="internetServiceDSL">DSL</label>
+
+            <input type="radio" id="internetServiceFiber" name="InternetService" value="Fiber optic" required>
+            <label for="internetServiceFiber">Fiber optic</label>
+
+            <input type="radio" id="internetServiceNo" name="InternetService" value="No" required>
+            <label for="internetServiceNo">No Internet</label>
+        </div>
+
+        <!-- Repeat similar for other fields -->
+
+        <button type="button" onclick="getPrediction()">Predict Churn</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        async function getPrediction() {
+            const formData = {
+                gender: document.querySelector('input[name="gender"]:checked').value,
+                SeniorCitizen: document.querySelector('input[name="SeniorCitizen"]:checked').value,
+                Partner: document.querySelector('input[name="Partner"]:checked').value,
+                Dependents: document.querySelector('input[name="Dependents"]:checked').value,
+                tenure: document.getElementById('tenure').value,
+                PhoneService: document.querySelector('input[name="PhoneService"]:checked').value,
+                PaperlessBilling: document.querySelector('input[name="PaperlessBilling"]:checked').value,
+                MonthlyCharges: document.getElementById('monthlyCharges').value,
+                TotalCharges: document.getElementById('totalCharges').value,
+                MultipleLines: document.querySelector('input[name="MultipleLines"]:checked').value,
+                InternetService: document.querySelector('input[name="InternetService"]:checked').value
+                // Add the other fields similarly
+            };
+        
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+        
+                const result = await response.json();
+        
+                // Check if result contains Probability before displaying
+                if (result.Probability !== undefined) {
+                    document.getElementById('result').innerHTML = `
+                        <h3>Prediction: ${result.Churn === 1 ? 'Churn' : 'No Churn'}</h3>
+                        <p>Probability: ${result.Probability.toFixed(2)}</p>
+                    `;
+                } else if (result.error) {
+                    // Display error if returned from API
+                    document.getElementById('result').innerHTML = `
+                        <h3>Error</h3>
+                        <p>${result.error}</p>
+                    `;
+                } else {
+                    // Handle unexpected cases
+                    document.getElementById('result').innerHTML = `
+                        <h3>Error</h3>
+                        <p>Unexpected response format.</p>
+                    `;
+                }
+        
+            } catch (error) {
+                document.getElementById('result').innerHTML = `
+                    <h3>Error</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+    </script>
+
+</body>
+</html>
