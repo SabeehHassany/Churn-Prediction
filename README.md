@@ -11,6 +11,7 @@ A Flask application that predicts customer churn based on user input. The applic
 - [Setup and Installation](#setup-and-installation)
 - [Run the Application](#run-the-application)
 - [Run with Docker](#run-with-docker)
+- [Future Directions](#future-directions)
 
 ## Project Overview
 
@@ -91,3 +92,11 @@ Run the container mapping the local machine’s port `5000` to the container’s
 ```bash
 docker run -p 5000:5000 churn-prediction-app
 ```
+
+## Future Directions
+
+- Enhance the UI/UX to make it more visually appealing and intuitive.
+- Add the ability to retrain the model with updated data directly through the web interface.
+- Provide users with an option to upload bulk customer data for batch churn predictions.
+- Allow users to export prediction results in formats like CSV or JSON.
+- Add authentication and user management for enhanced security.
