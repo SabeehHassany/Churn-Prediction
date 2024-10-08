@@ -2,6 +2,8 @@
 
 A Flask application that predicts customer churn based on user input. The application is built using Python and machine learning models to make predictions about customer churn probability. The app accepts customer details via a web form and returns a prediction along with the probability of churn.
 
+[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://youtu.be/UuFNqvA25ho)
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
